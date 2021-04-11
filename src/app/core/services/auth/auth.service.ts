@@ -8,7 +8,7 @@ import { User }from '../../models/User';
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { first, catchError, tap, map,  } from "rxjs/operators";
 import { ErrorHandlerService } from "../error-handler.service";
-import jwt_decode from 'jwt-decode';
+import  jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +20,8 @@ export class AuthService {
   isUserLoggedIn$ = new BehaviorSubject<boolean>(false);
   //userId: Pick<Empleado, "idempleado">;
   userToken: string;
+  userTipo: string;
+  userId: string;
   //empleadoId: Pick<Empleado, "idempleado">
 
 
@@ -28,7 +30,7 @@ export class AuthService {
     headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
 
-  constructor(private httpClient: HttpClient,private errorHandlerService: ErrorHandlerService) { }
+  constructor(private httpClient: HttpClient,private errorHandlerService: ErrorHandlerService, private router: Router) { }
 
 
   /*
@@ -47,10 +49,22 @@ export class AuthService {
   removeToken() {
     sessionStorage.removeItem('token');
   }
+  removeTipo() {
+    sessionStorage.removeItem('tipo');
+  }
 
   private saveToken(token: string) {
     this.userToken = token;
     sessionStorage.setItem('token', token);
+  }
+
+  private saveTipo(tipo: string){
+    this.userTipo = tipo;
+    sessionStorage.setItem('tipo', tipo);
+  }
+  private saveId(id: string){
+    this.userId = id;
+    sessionStorage.setItem('id', id);
   }
 
   getToken() {
@@ -98,8 +112,8 @@ export class AuthService {
     .post<User>(`${this.url}/login`, authData)
     .pipe(
     map( (res: User) =>  {
-      console.log('Res: ', res); 
       this.saveToken(res['token']);
+      this.saveTipo(res['tipo']);
       this.isUserLoggedIn$.next(true);
       return res;
     }),
@@ -107,16 +121,11 @@ export class AuthService {
     );
   }
 
-  loginPrueba(){
-    return this.httpClient.get(`${ this.url }/empleados`).pipe(
-      map( resp => {
-        localStorage
-        //this.saveToken(resp['token']);
-        return resp;
-      })
-    ); 
+  logout(){
+    this.removeToken();
+    this.removeTipo();
+    this.router.navigateByUrl('/login');
   }
-
   /*
   getEmpleado(id: string): Observable<Empleado | any> {
     return this.httpClient
@@ -134,7 +143,7 @@ export class AuthService {
     );
 
   }*/
-
+  /*
   getEmpleado(id:string) {
     return this.httpClient.get(`${ this.url }/empleados/${id}`).pipe(
       map( resp => {
@@ -144,12 +153,61 @@ export class AuthService {
     ); 
   }
 
+  getEmpleado2(){
+    this.prueba();
+    return this.httpClient.get(`${ this.url }/empleados/${this.userId}`).pipe(
+      map( resp => {
+        //this.saveToken(resp['token']);
+        return resp;
+      })
+    ); 
+  }*/
+
+  getEmpleado3(){
+    const decoded = jwt_decode(this.userToken);  
+    return this.httpClient.get(`${ this.url }/empleados/${decoded['userId']}`).pipe(
+      map( resp => {
+        //this.saveToken(resp['token']);
+        return resp;
+      })
+    ); 
+
+  }
+
   private handlerError(err): Observable<never> {
     let errorMessage = 'An errror occured retrienving data';
     if (err) {
-      errorMessage = `Error: code ${err.message}`;
+      //if(err.message = 'Http failure response for http://localhost:3000/login: 401 Unauthorized')
+      //errorMessage = `Error: code ${err.message}`;
+      errorMessage = `${err.error.message}`;
     }
     window.alert(errorMessage);
     return throwError(errorMessage);
+  }
+
+  isAuth(): boolean {
+    let auth = false;
+    if (this.getToken() !== '') {
+      auth = true;
+    }
+    return auth;
+  }
+
+  isEmpleado(): boolean {
+    if(sessionStorage.getItem('tipo') == 'empleado'){
+      return true;
+    } 
+     else {
+       return false;
+     }
+  }
+
+  isDirectivo(): boolean {
+    if(sessionStorage.getItem('tipo') == 'directivo'){
+      return true;
+    } 
+     else {
+       return false;
+     }
   }
 }

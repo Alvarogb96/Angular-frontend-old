@@ -55,11 +55,11 @@ export class LoginComponent implements OnInit {
       //console.log(res);
       //console.log('Tipo: ', res.tipo);
       if(res.tipo == 'empleado'){
-        this.auth.getEmpleado(res.userId).subscribe((res2) => {
-          this.empleado = new Empleado(res2);
-          console.log(this.empleado);
+        //this.auth.getEmpleado(res.userId).subscribe((res2) => {
+          //this.empleado = new Empleado(res2);
+          //console.log(this.empleado);
           this.router.navigateByUrl('empleado');
-        });
+        //});
       } else if(res.tipo == 'directivo'){
         this.router.navigateByUrl('directivo');
       }

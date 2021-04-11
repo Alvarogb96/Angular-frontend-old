@@ -1,0 +1,23 @@
+:host ::ng-deep .tabview-custom i, :host ::ng-deep .tabview-custom span {
+    vertical-align: middle;
+}
+:host ::ng-deep .tabview-custom span {
+    margin: 0 0.5rem;
+}
+:host ::ng-deep .p-button {
+    margin-right: 0.25rem;
+}
+:host ::ng-deep .p-tabview p {
+    line-height: 1.5;
+    margin: 0;
+}
+
+.tabview {
+    padding-left: 5%;
+    width: 90% !important;
+}
+.button {
+    padding-right: 5%;
+    float: right;
+}
+  
