@@ -62,6 +62,8 @@ export class LoginComponent implements OnInit {
         //});
       } else if(res.tipo == 'directivo'){
         this.router.navigateByUrl('directivo');
+      } else if(res.tipo =='empresa'){
+        //this.router.navigateByUrl('empresa');
       }
     
     

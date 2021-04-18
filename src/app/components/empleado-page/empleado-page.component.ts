@@ -12,16 +12,17 @@ export class EmpleadoPageComponent implements OnInit {
   //emp: any;
   empleadoId:string;
   empleado: Empleado;
+  nombre: string;
 
   constructor(private auth: AuthService) { }
 
   ngOnInit(): void {
-    this.empleadoId = this.auth.userId;
+    //this.empleadoId = this.auth.userId;
     //this.empleado = this.getEmpleado(this.empleadoId);
     //console.log(this.empleado);
     //console.log("token: " + this.auth.userTipo);
     //this.getEmpleado(this.empleadoId);
-    //this.getEmpleado3();
+    this.getEmpleado3();
   }
 
   logout(){
@@ -38,8 +39,10 @@ export class EmpleadoPageComponent implements OnInit {
   getEmpleado3(){
     this.auth.getEmpleado3().subscribe((res2) => {
       this.empleado = new Empleado(res2);
-      //console.log(this.empleado);
-});
+      console.log(this.empleado);
+      this.nombre = this.empleado.nombre;
+      this.empleadoId = this.empleado.idempleado;
+  });
   }
 
 }
