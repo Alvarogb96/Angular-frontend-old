@@ -15,7 +15,7 @@ export class EmpleadoTestsComponent implements OnInit, OnChanges{
   cols: any[];
 
   first = 0;
-  rows = 2;
+  rows = 5;
   totalRecords: any;
 
 

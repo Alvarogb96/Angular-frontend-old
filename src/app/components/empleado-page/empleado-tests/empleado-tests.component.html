@@ -1,8 +1,8 @@
 <div>
     <h2>Test realizados</h2>
 </div>
-<p-table [columns]="cols" [value]="listTest" styleClass="p-datatable-striped" [paginator]="true" [rows]="2" [showCurrentPageReport]="true" 
-currentPageReportTemplate="Mostrando {first} a {last} de {{totalRecords}} test realizados" [totalRecords]="totalRecords" [rowsPerPageOptions]="[2,10,15]" >
+<p-table [columns]="cols" [value]="listTest" styleClass="p-datatable-striped" [paginator]="true" [rows]="5" [showCurrentPageReport]="true" 
+currentPageReportTemplate="Mostrando {first} a {last} de {{totalRecords}} test realizados" [totalRecords]="totalRecords" [rowsPerPageOptions]="[5,10,15]" >
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns" pSortableColumn={{col.field}}>
