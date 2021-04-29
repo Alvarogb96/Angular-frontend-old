@@ -1,3 +1,5 @@
+@import '../../../styles.css';
+
 :host ::ng-deep .tabview-custom i, :host ::ng-deep .tabview-custom span {
     vertical-align: middle;
 }
@@ -14,10 +16,6 @@
 
 .tabview {
     padding-left: 5%;
-    width: 90% !important;
-}
-.button {
     padding-right: 5%;
-    float: right;
 }
   

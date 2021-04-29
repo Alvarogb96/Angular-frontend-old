@@ -111,7 +111,7 @@ export class AuthService {
     return this.httpClient
     .post<User>(`${this.url}/login`, authData)
     .pipe(
-    map( (res: User) =>  {
+    map( (res) =>  {
       this.saveToken(res['token']);
       this.saveTipo(res['tipo']);
       this.isUserLoggedIn$.next(true);

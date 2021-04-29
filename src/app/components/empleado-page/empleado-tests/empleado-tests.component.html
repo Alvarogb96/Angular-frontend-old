@@ -1,0 +1,22 @@
+<div>
+    <h2>Test realizados</h2>
+</div>
+<p-table [columns]="cols" [value]="listTest" styleClass="p-datatable-striped" [paginator]="true" [rows]="2" [showCurrentPageReport]="true" 
+currentPageReportTemplate="Mostrando {first} a {last} de {{totalRecords}} test realizados" [totalRecords]="totalRecords" [rowsPerPageOptions]="[2,10,15]" >
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" pSortableColumn={{col.field}}>
+                {{col.header}}
+                <p-sortIcon field={{col.field}}></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+

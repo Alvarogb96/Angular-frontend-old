@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder,FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { Router } from '@angular/router';
 import { Empleado } from 'src/app/core/models/empleado';
+import {CONSTANTES}from '../../core/constantes' 
 
 
 
@@ -20,7 +21,14 @@ export class LoginComponent implements OnInit {
   textError: string;
   showError = false;
 
-  constructor(private router: Router, private auth: AuthService) { }
+  constructor(private router: Router, private auth: AuthService) { 
+    this.loginForm = new FormGroup({
+      email: new FormControl("", [Validators.required, Validators.email]),
+      password: new FormControl("", [
+        Validators.required,
+      ])
+    });
+  }
 
   
   /*
@@ -30,14 +38,14 @@ export class LoginComponent implements OnInit {
     });
   }*/
   ngOnInit(): void {
-    this.loginForm = this.createFormGroup();
+    //this.loginForm = this.createFormGroup();
     
     
   }
 
   createFormGroup(): FormGroup {
     return new FormGroup({
-      email: new FormControl("", [Validators.required]),
+      email: new FormControl("", [Validators.required, Validators.email]),
       password: new FormControl("", [
         Validators.required,
       ]),
@@ -46,8 +54,8 @@ export class LoginComponent implements OnInit {
 
   login(){
     const authData = {
-      email: this.loginForm.value.email,
-      password: this.loginForm.value.password
+      email: this.loginForm.get('email').value,
+      password: this.loginForm.get('password').value
     }
   
   if(this.loginForm.value.email !== '' && this.loginForm.value.password !== ''){
@@ -74,6 +82,16 @@ export class LoginComponent implements OnInit {
       }
     });
 
+    }
+  }
+
+  getErrorMessage() {
+    if (this.loginForm.get('email').hasError('required')) {
+      return CONSTANTES.EMAIL_VACIO;
+    } else if(this.loginForm.get('email').hasError('email')){
+      return CONSTANTES.EMAIL_ERROR
+    } else if(this.loginForm.get('password').hasError('required')){
+      return CONSTANTES.PASSWORD_VACIA
     }
   }
 

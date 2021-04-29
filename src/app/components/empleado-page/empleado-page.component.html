@@ -1,28 +1,28 @@
-<p>Hola {{nombre}}</p>
 <div>
     <div class="p-d-inline">
-        <div class="button">
+        <div>
+            <h1>Empleado: {{nombreEmpleado}}</h1>
+        </div>
+        <div class="button-logout">
             <button pButton pRipple type="button" label="Logout" (click)="logout()"></button>
         </div>
     <div class="tabview">
         <p-tabView>
-            <p-tabPanel header="Header 1">
-                Content 1
+            <p-tabPanel header="Test clínicos">
+                <app-empleado-tests #empleadoTest [datosTest] = "testsEmpleado">
+                </app-empleado-tests>
             </p-tabPanel>
-            <p-tabPanel header="Header 2">
+            <p-tabPanel header="Solicitar material de protección">
                 Content 2
             </p-tabPanel>
-            <p-tabPanel header="Header 3">
+            <p-tabPanel header="Información jornada laboral">
                 Content 3
             </p-tabPanel>
-            <p-tabPanel header="Header 4">
+            <p-tabPanel header="Solicitar Baja">
                 Content 4
             </p-tabPanel>
-            <p-tabPanel header="Header 5">
+            <p-tabPanel header="Noticias">
                 Content 5
-            </p-tabPanel>
-            <p-tabPanel header="Header 6">
-                Content 6
             </p-tabPanel>
         </p-tabView>
         
