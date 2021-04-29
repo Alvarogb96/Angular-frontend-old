@@ -85,12 +85,15 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  getErrorMessage() {
+  getEmailErrorMessage() {
     if (this.loginForm.get('email').hasError('required')) {
       return CONSTANTES.EMAIL_VACIO;
     } else if(this.loginForm.get('email').hasError('email')){
       return CONSTANTES.EMAIL_ERROR
-    } else if(this.loginForm.get('password').hasError('required')){
+    } 
+  }
+  getPasswordErrorMessage(){
+    if(this.loginForm.get('password').hasError('required')){
       return CONSTANTES.PASSWORD_VACIA
     }
   }

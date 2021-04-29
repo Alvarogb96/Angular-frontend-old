@@ -15,14 +15,14 @@
             <p>
                 <mat-form-field>
                     <input type="text" matInput placeholder="Email" formControlName="email" required>
-                    <mat-error *ngIf="loginForm.get('email').invalid">{{getErrorMessage()}}</mat-error>
+                    <mat-error *ngIf="loginForm.get('email').invalid">{{getEmailErrorMessage()}}</mat-error>
                 </mat-form-field>
             </p>
 
             <p>
                 <mat-form-field>
                     <input type="password" matInput placeholder="Password" formControlName="password" required>
-                    <mat-error *ngIf="loginForm.get('password').invalid">{{getErrorMessage()}}</mat-error>
+                    <mat-error *ngIf="loginForm.get('password').invalid">{{getPasswordErrorMessage()}}</mat-error>
                 </mat-form-field>
             </p>
             <!--
